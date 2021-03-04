@@ -9,8 +9,16 @@ import {
   FlatList,
 } from 'react-native';
 
+import {createStackNavigator} from '@react-navigation/stack';
+import Landing from '../Landing';
+import ProductList from '../ProductList';
+import Product from '../Product';
+import Cart from '../Cart';
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+const Stack = createStackNavigator();
+
 const CATEGORIES_HOME_PAGE = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -28,9 +36,12 @@ const CATEGORIES_HOME_PAGE = [
 
 function Home(props) {
   return (
-    <ScrollView style={styles.container}>
-      <FlatList></FlatList>
-    </ScrollView>
+    <Stack.Navigator>
+      <Stack.Screen name="Landing" component={Landing} />
+      <Stack.Screen name="ProductList" component={ProductList} />
+      <Stack.Screen name="Product" component={Product} />
+      <Stack.Screen name="Cart" component={Cart} />
+    </Stack.Navigator>
   );
 }
 

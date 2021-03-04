@@ -1,82 +1,43 @@
 import React from 'react';
 import {StyleSheet, View, Text, Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {
-  createStackNavigator,
-  CardStyleInterpolators,
-} from '@react-navigation/stack';
-import Animated from 'react-native-reanimated';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import IconIcons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Home from './screens/application/Home';
+import Profile from './screens/application/Profile';
 
-const Stack = createStackNavigator();
-
-function HomeScreen({navigation}) {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
-      />
-    </View>
-  );
-}
-
-function DetailsScreen({navigation}) {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Details Screen</Text>
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-    </View>
-  );
-}
-
-function Header({scene, previous, navigation}) {
-  const {options} = scene.descriptor;
-  const title =
-    options.headerTitle !== undefined
-      ? options.headerTitle
-      : options.title !== undefined
-      ? options.title
-      : scene.route.name;
-
-  return (
-    <View
-      title={title}
-      leftButton={previous ? <Button onPress={navigation.goBack} /> : undefined}
-      style={options.headerStyle}
-    />
-  );
-}
+const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
-    <>
-      <Home />
-      {/* <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Home"
-          screenOptions={{
-            gestureEnabled: true,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-            header: ({navigation}) => {
-              return (
-                <View>
-                  <Button title="go back" onPress={navigation.goBack} />
-                </View>
-              );
-            },
-          }}
-          headerMode="float"
-          headerStyle={{height: 80}}>
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen
-            name="Details"
-            component={(props) => <DetailsScreen {...props} />}
-          />
-        </Stack.Navigator>
-      </NavigationContainer> */}
-    </>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = focused ? 'home' : 'home-outline';
+              return <IconIcons name={iconName} size={size} color={color} />;
+            } else if (route.name === 'Profile') {
+              iconName = focused ? 'user' : 'user-o';
+              return <FontAwesome name={iconName} size={size} color={color} />;
+            } else if (route.name === 'Explore') {
+              iconName = 'search';
+              return <FontAwesome name={iconName} size={size} color={color} />;
+            }
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: '#FF2D55',
+          inactiveTintColor: 'gray',
+        }}>
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Explore" component={Profile} />
+        <Tab.Screen name="Profile" component={Profile} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
 

@@ -1,0 +1,43 @@
+export const PICKEDPRODUCTS = [
+  {
+    name: 'T-shirt',
+    price: '650',
+    discount: '5%',
+    id: '1',
+    size: 'L',
+    description: 'I write code black T-shirt by LCO',
+    images: [],
+  },
+  {
+    name: 'T-shirt',
+    price: '400',
+    discount: 0,
+    id: '1',
+    description: '',
+    images: [],
+  },
+  {
+    name: 'T-shirt',
+    price: '400',
+    discount: 0,
+    id: '1',
+    description: '',
+    images: [],
+  },
+  {
+    name: 'T-shirt',
+    price: '400',
+    discount: 0,
+    id: '1',
+    description: '',
+    images: [],
+  },
+  {
+    name: 'T-shirt',
+    price: '400',
+    discount: 0,
+    id: '1',
+    description: '',
+    images: [],
+  },
+];
