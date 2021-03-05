@@ -1,17 +1,27 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-const PickedProduct = ({item}) => {
+const PickedProduct = ({item, navigation}) => {
   return (
     <View style={styles.pickedProductContainer}>
-      <Image style={styles.img} />
-      <Text style={styles.title}>{item.name}</Text>
-      <Text style={styles.description}>{item.description}</Text>
-      <Text style={styles.price}>
-        {'\u20A8'} {item.price}
-      </Text>
+      <Image style={styles.img} source={require('../../../public/p1.png')} />
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Product', {data: item})}>
+        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.description}>{item.description}</Text>
+        <Text style={styles.price}>
+          {'\u20A8'} {item.price}
+        </Text>
+      </TouchableOpacity>
       <View style={styles.CTAs}>
         <TouchableOpacity style={styles.CTA}>
           <EvilIcons name={'cart'} size={25} color={'white'} />
@@ -35,14 +45,14 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   img: {
-    width: 200 - 12,
+    width: 200,
     height: 150,
-    margin: 5,
     borderWidth: 1,
     borderColor: 'rgba(10,10,10,1)',
   },
   title: {
     marginLeft: 5,
+    marginTop: 10,
     fontSize: 18,
     fontWeight: '800',
   },
