@@ -1,19 +1,12 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Dimensions,
-  SafeAreaView,
-  ScrollView,
-  FlatList,
-} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import Landing from '../Landing';
 import ProductList from '../ProductList';
 import Product from '../Product';
 import Cart from '../Cart';
+import HomeHeader from '../../../components/HomeHeader';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -31,6 +24,23 @@ function Home(props) {
           headerStyle: {
             borderBottomWidth: 0,
             elevation: 0,
+          },
+          header: ({scene, previous, navigation}) => {
+            const {options} = scene.descriptor;
+
+            const title =
+              options.headerTitle !== undefined
+                ? options.headerTitle
+                : options.title !== undefined
+                ? options.title
+                : scene.route.name;
+            return (
+              <HomeHeader
+                title={title}
+                navigation={navigation}
+                style={options.headerStyle}
+              />
+            );
           },
         }}
       />

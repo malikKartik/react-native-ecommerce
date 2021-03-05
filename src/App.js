@@ -6,6 +6,7 @@ import IconIcons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Home from './screens/application/Home';
 import Profile from './screens/application/Profile';
+import Add from './screens/application/Add';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,8 +25,13 @@ const App = () => {
               iconName = focused ? 'user' : 'user-o';
               return <FontAwesome name={iconName} size={size} color={color} />;
             } else if (route.name === 'Explore') {
-              iconName = 'search';
-              return <FontAwesome name={iconName} size={size} color={color} />;
+              iconName = focused ? 'md-search' : 'md-search-outline';
+              return <IconIcons name={iconName} size={size} color={color} />;
+            } else if (route.name === 'Add') {
+              iconName = focused
+                ? 'md-add-circle-sharp'
+                : 'md-add-circle-outline';
+              return <IconIcons name={iconName} size={size} color={color} />;
             }
           },
         })}
@@ -35,16 +41,16 @@ const App = () => {
         }}>
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Explore" component={Profile} />
+        <Tab.Screen
+          name="Add"
+          component={({navigation}) => (
+            <Add navigation={navigation} isLoggedIn />
+          )}
+        />
         <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
     </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  text: {
-    color: 'rgba(40,40,40,0.3)',
-  },
-});
 
 export default App;

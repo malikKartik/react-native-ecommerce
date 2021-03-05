@@ -15,7 +15,9 @@ const PickedProduct = ({item, navigation}) => {
     <View style={styles.pickedProductContainer}>
       <Image style={styles.img} source={require('../../../public/p1.png')} />
       <TouchableOpacity
-        onPress={() => navigation.navigate('Product', {data: item})}>
+        onPress={() =>
+          navigation.navigate('Product', {data: item, navigation})
+        }>
         <Text style={styles.title}>{item.name}</Text>
         <Text style={styles.description}>{item.description}</Text>
         <Text style={styles.price}>
