@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import {
   createStackNavigator,
@@ -8,21 +8,27 @@ import Step1 from './patials/Step1';
 import Step2 from './patials/Step2';
 import Step3 from './patials/Step3';
 import Header from './patials/Header';
-import Button from '../../../components/Button';
+import LoginRequired from '../../../components/LoginRequired';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Stack = createStackNavigator();
 
-const Add = ({navigation: tabNavigation, isLoggedIn}) => {
+const Add = ({navigation: tabNavigation}) => {
+  const [isLoggedIn, setIsLoggedIn] = useState('false');
+  useFocusEffect(
+    React.useCallback(() => {
+      const checkIfLoggedIn = async () => {
+        const val = await AsyncStorage.getItem('isLoggedIn');
+        setIsLoggedIn(val);
+      };
+      checkIfLoggedIn();
+    }, []),
+  );
   return (
     <>
-      {!isLoggedIn ? (
-        <>
-          <Text>You need to login First</Text>
-          <Button
-            title="Login"
-            onPress={() => tabNavigation.navigate('Profile')}
-          />
-        </>
+      {isLoggedIn !== 'true' ? (
+        <LoginRequired tabNavigation={tabNavigation} />
       ) : (
         <Stack.Navigator
           screenOptions={{

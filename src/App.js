@@ -11,6 +11,9 @@ import Add from './screens/application/Add';
 const Tab = createBottomTabNavigator();
 
 const App = () => {
+  const AddScreen = ({navigation}) => {
+    return <Add navigation={navigation} isLoggedIn={false} />;
+  };
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -41,12 +44,7 @@ const App = () => {
         }}>
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Explore" component={Profile} />
-        <Tab.Screen
-          name="Add"
-          component={({navigation}) => (
-            <Add navigation={navigation} isLoggedIn />
-          )}
-        />
+        <Tab.Screen name="Add" component={AddScreen} />
         <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
     </NavigationContainer>
