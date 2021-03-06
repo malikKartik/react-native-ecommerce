@@ -8,6 +8,7 @@ import UserDetails from './StackScreens/Profile/UserDetails/UserDetails';
 import MyOrders from './StackScreens/Profile/MyOrders/MyOrders';
 import Login from './StackScreens/Auth/Login';
 import Signup from './StackScreens/Auth/Signup';
+import axios from 'axios';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -24,6 +25,7 @@ const Profile = () => {
       checkIfLoggedIn();
     }, []),
   );
+
   const setItem = async (key, value) => {
     try {
       console.log(key, value);
@@ -43,6 +45,9 @@ const Profile = () => {
   const LoginScreen = ({navigation}) => {
     return <Login navigation={navigation} setIsLoggedIn={setIsLoggedIn} />;
   };
+  const SignupScreen = ({navigation}) => {
+    return <Signup navigation={navigation} setIsLoggedIn={setIsLoggedIn} />;
+  };
   return (
     <>
       {isLoggedIn === 'true' ? (
@@ -53,7 +58,7 @@ const Profile = () => {
       ) : (
         <Stack.Navigator>
           <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Signup" component={Signup} />
+          <Stack.Screen name="Signup" component={SignupScreen} />
         </Stack.Navigator>
       )}
     </>

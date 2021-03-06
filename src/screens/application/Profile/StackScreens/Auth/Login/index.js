@@ -1,7 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
-import {Dimensions, ScrollView, StyleSheet, Text} from 'react-native';
+import {
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import Button from '../../../../../../components/Button';
+import {Instruction} from '../../../../../../components/Text';
 import TextInput from '../../../../../../components/TextInput';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -21,6 +28,9 @@ const Login = ({navigation, setIsLoggedIn}) => {
       <TextInput placeholder="Email or Phone Number" />
       <TextInput placeholder="Password" />
       <Button onPress={() => setItem('isLoggedIn', true)} title="Login" />
+      <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+        <Instruction center>Signup instead</Instruction>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
